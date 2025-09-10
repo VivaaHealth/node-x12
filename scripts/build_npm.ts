@@ -6,7 +6,7 @@ import { copy } from "https://deno.land/std@0.136.0/fs/mod.ts";
 import { inc as increment } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 import { build, emptyDir } from "https://deno.land/x/dnt@0.22.0/mod.ts";
 
-const NPM_NAME = "node-x12";
+const NPM_NAME = "@notable/node-x12";
 
 await emptyDir("./npm");
 await copy("test/test-data", "npm/esm/test/test-data", { overwrite: true });
@@ -69,7 +69,7 @@ await build({
     name: NPM_NAME,
     version: newVersion,
     description:
-      "ASC X12 parser, generator, query engine, and mapper; now with support for streams.",
+      "Notable fork of node-x12, an ASC X12 parser, generator, query engine, and mapper; now with support for streams.",
     keywords: [
       "x12",
       "edi",
@@ -85,6 +85,12 @@ await build({
       type: "git",
       url: `https://github.com/aaronhuggins/${NPM_NAME}.git`,
     },
+    scripts: {
+      publish: "npm publish --registry=https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/"
+    },
+    publishConfig: {
+      registry: "https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/",
+    },
   },
 });
 
@@ -93,7 +99,7 @@ class Appender {
   encoder = new TextEncoder();
   file: Promise<Deno.FsFile>;
   constructor(file: string) {
-    this.file = Deno.open(file, { append: true });
+    this.file = Deno.open(file, { append: true, create: true });
   }
   async write(line: string) {
     (await this.file).write(this.encoder.encode(line + "\n"));
@@ -107,6 +113,13 @@ const npmignore = new Appender("npm/.npmignore");
 await npmignore.write("esm/test/test-data/**");
 await npmignore.write("script/test/test-data/**");
 await npmignore.close();
+
+const npmrc = new Appender("npm/.npmrc");
+await npmrc.write("registry=https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/");
+await npmrc.write("always-auth=true");
+await npmrc.write("@notable:registry=https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/");
+await npmrc.write("@notable:always-auth=true");
+await npmrc.close();
 
 await Deno.copyFile("LICENSE.md", "npm/LICENSE.md");
 await Deno.copyFile("README.md", "npm/README.md");
