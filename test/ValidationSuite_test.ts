@@ -60,7 +60,19 @@ describe("X12ValidationEngine", () => {
     const ruleJson = JSON.parse(validationRuleSimple850);
     const parser = new X12Parser();
     const interchange = parser.parse(edi) as X12Interchange;
-    const validator = new X12ValidationEngine();
+    const validator = new X12ValidationEngine(
+      {
+        ackMap: {
+        header: ["997", "12345"],
+        segments: [
+          {
+            tag: "AK1",
+            elements: ["12345", "12345"],
+          },
+          ],
+        },
+      },
+    );
     let rule: any = new X12InterchangeRule(ruleJson);
     let report = validator.assert(interchange, rule);
 
@@ -134,6 +146,15 @@ describe("X12ValidationEngine", () => {
           "X",
           "004010",
         ]),
+      },
+      ackMap: {
+        header: ["997", "12345"],
+        segments: [
+          {
+            tag: "AK1",
+            elements: ["12345", "12345"],
+          },
+        ],
       },
     });
 

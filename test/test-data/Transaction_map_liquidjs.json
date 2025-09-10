@@ -1,5 +1,5 @@
 {
-  "header": ["940", "{{ macro | random }}"],
+  "header": ["940", "12345"],
   "segments": [
     {
       "tag": "W05",

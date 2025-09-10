@@ -71,7 +71,11 @@ export class X12ValidationEngine {
     const { acknowledgement, throwError, ackMap } = options;
     this.pass = true;
     this.throwError = false;
-    this.ackMap = typeof ackMap === "object" ? ackMap : simpleAckMap;
+    if (ackMap !== null && ackMap !== undefined && typeof ackMap === "object") {
+      this.ackMap = ackMap;
+    } else {
+      throw new Error("ackMap must be provided and an object");
+    };
 
     if (typeof acknowledgement === "object") {
       const { isa, gs, options: x12options } = acknowledgement;

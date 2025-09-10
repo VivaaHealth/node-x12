@@ -6,7 +6,7 @@ import { X12Interchange } from "./X12Interchange.ts";
 import { X12QueryEngine, X12QueryMode } from "./X12QueryEngine.ts";
 import { X12Transaction } from "./X12Transaction.ts";
 import { TxEngine } from "./X12SerializationOptions.ts";
-import { crypto, Liquid } from "../deps.ts";
+import { Liquid } from "../deps.ts";
 
 /**
  * @private
@@ -415,13 +415,7 @@ export class X12TransactionMap {
         return `${value}`.substring(0, maxChars);
       },
       random: (_val: string, maxLength = 4) => {
-        const bytes = Math.ceil(maxLength / 2);
-        const buffer = crypto.randomBytes(bytes);
-        const hex = buffer.toString("hex");
-
-        return parseInt(hex, 16)
-          .toString()
-          .substring(0, maxLength);
+        throw new Error("Random is not supported");
       },
       edi_date: (val: string, length = "long") => {
         const date = !isEmpty(val) ? new Date(val) : new Date();

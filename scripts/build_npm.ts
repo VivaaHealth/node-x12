@@ -59,7 +59,6 @@ await build({
   mappings: {
     "https://deno.land/std@0.136.0/node/stream.ts": "stream",
     "https://deno.land/std@0.136.0/node/string_decoder.ts": "string_decoder",
-    "https://deno.land/std@0.136.0/node/crypto.ts": "crypto",
     "https://cdn.skypack.dev/pin/liquidjs@v9.37.0-dA2YkE2JlVe1VjIZ5g3G/mode=imports/optimized/liquidjs.js":
       {
         name: "liquidjs",
