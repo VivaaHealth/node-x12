@@ -1,0 +1,50 @@
+{
+  "module": "./esm/mod.js",
+  "main": "./script/mod.js",
+  "types": "./types/mod.d.ts",
+  "name": "@notable/node-x12",
+  "version": "1.8.0-1",
+  "description": "Notable fork of node-x12, an ASC X12 parser, generator, query engine, and mapper; now with support for streams.",
+  "keywords": [
+    "x12",
+    "edi",
+    "ansi",
+    "asc",
+    "ecommerce"
+  ],
+  "engines": {
+    "node": ">=20.8.0"
+  },
+  "homepage": "https://github.com/aaronhuggins/@notable/node-x12#readme",
+  "bugs": "https://github.com/aaronhuggins/@notable/node-x12/issues",
+  "license": "MIT",
+  "author": "Aaron Huggins <aaron.huggins@runbox.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronhuggins/@notable/node-x12.git"
+  },
+  "scripts": {
+    "test": "node test_runner.js",
+    "build": "tsc",
+    "publish": "npm publish --registry=https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/"
+  },
+  "publishConfig": {
+    "registry": "https://us-central1-npm.pkg.dev/notable-devops-prod/npm-notable-private/"
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/mod.js",
+      "require": "./script/mod.js",
+      "types": "./types/mod.d.ts"
+    }
+  },
+  "dependencies": {
+    "liquidjs": "^9.37.0"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.26",
+    "chalk": "4.1.2",
+    "@deno/shim-deno": "~0.4.3"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
