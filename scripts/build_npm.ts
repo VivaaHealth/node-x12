@@ -112,6 +112,7 @@ class Appender {
 const npmignore = new Appender("npm/.npmignore");
 await npmignore.write("esm/test/test-data/**");
 await npmignore.write("script/test/test-data/**");
+await npmignore.write(".npmrc")
 await npmignore.close();
 
 const npmrc = new Appender("npm/.npmrc");
